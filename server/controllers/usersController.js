@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const User = require('../models/User');
 const HttpError = require('../models/Http-error');
+const { parseError } = require('../util/parsers');
 
 router.post('/register', async (req, res, next) => {
 	// on this route users will register
@@ -13,9 +14,16 @@ router.post('/register', async (req, res, next) => {
 	try {
 		await createdUser.save();
 	} catch (err) {
-		const error = new HttpError('Could not create the user, please try again later.');
-		return next(error);
-	}
+		const mongooseError = parseError(err)[0];
+		let error;
+		if (mongooseError) {
+			error = new HttpError('Email is already in use. Please try again.', 500)
+			return next(error);
+		} else {
+			error = new HttpError('Could not create the user, please try again later.', 500);
+			return next(error);
+		}
+	};
 	res.json({ user: createdUser });
 });
 
