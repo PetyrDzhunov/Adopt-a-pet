@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
-		minlength: 3,
 	},
 	email: {
 		type: String,
@@ -20,7 +19,7 @@ const userSchema = new mongoose.Schema({
 		required: true
 	},
 	phoneNumber: {
-		type: Number,
+		type: String,
 		required: true,
 	},
 	facebookURL: {
@@ -28,7 +27,6 @@ const userSchema = new mongoose.Schema({
 	},
 	animalsOwned: [{ type: mongoose.Types.ObjectId, ref: 'Animal', required: true }]
 });
-
 
 userSchema.pre('save', function (next) {
 	bcrypt.genSalt(SALT_FOR_HASHING)
