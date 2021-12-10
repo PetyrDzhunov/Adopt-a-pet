@@ -5,6 +5,7 @@ const { parseError } = require('../util/parsers');
 const jwt = require('../util/jwt');
 const { JWT_KEY } = require('../config/constants');
 const { check, validationResult } = require('express-validator');
+const { isGuest } = require('../middlewares/authMiddlware');
 
 router.post('/register',
 	[
@@ -13,7 +14,6 @@ router.post('/register',
 		check('password').isLength({ min: 6 })
 	],
 	async (req, res, next) => {
-
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			return next(
@@ -59,6 +59,7 @@ router.post('/register',
 			};
 		};
 
+
 		let token = await jwt.sign({ userId: createdUser._id, email: createdUser.email }, JWT_KEY, { expiresIn: '1h' })
 
 		if (!token) {
@@ -70,10 +71,11 @@ router.post('/register',
 	});
 
 
-router.post('/login', (req, res, next) => {
+router.post('/login', isGuest, (req, res, next) => {
+	const { email, password } = req.body;
+
 	// on this route users will login;
 	res.json({ ok: true });
-
 });
 
 router.get('/:userId/animals', (req, res, next) => {
