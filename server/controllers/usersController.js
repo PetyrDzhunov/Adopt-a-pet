@@ -1,8 +1,22 @@
 const router = require('express').Router();
+const User = require('../models/User');
+const HttpError = require('../models/Http-error');
 
-router.post('/register', (req, res, next) => {
+router.post('/register', async (req, res, next) => {
 	// on this route users will register
-	res.json({ ok: true });
+
+	// get data from the client and validate it;
+	const { name, email, password, phoneNumber, facebookURL } = req.body;
+
+	const createdUser = new User({ name, email, password, phoneNumber, facebookURL });
+
+	try {
+		await createdUser.save();
+	} catch (err) {
+		const error = new HttpError('Could not create the user, please try again later.');
+		return next(error);
+	}
+	res.json({ user: createdUser });
 });
 
 
