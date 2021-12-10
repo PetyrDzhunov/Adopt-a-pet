@@ -8,7 +8,6 @@ async function start() {
 	const app = express();
 	await databaseConfig(app);
 	expressConfig(app);
-	console.log('runnig');
 
 	app.listen(PORT, () => {
 		console.log(`Server is running on http://localhost:${PORT}`);
