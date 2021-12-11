@@ -12,7 +12,7 @@ const animalSchema = new mongoose.Schema({
 	},
 	species: {
 		type: String,
-		enum: ['cat', 'dog']
+		enum: ['cat', 'dog'],
 	},
 	age: {
 		type: Number,
@@ -42,3 +42,5 @@ const animalSchema = new mongoose.Schema({
 const Animal = mongoose.model('Animal', animalSchema);
 
 module.exports = Animal;
+
+

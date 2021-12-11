@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require('bcryptjs');
 const { SALT_FOR_HASHING } = require('../config/constants');
-
 
 const userSchema = new mongoose.Schema({
 	name: {
@@ -12,7 +10,6 @@ const userSchema = new mongoose.Schema({
 	},
 	email: {
 		type: String,
-		required: true,
 		unique: true,
 		trim: true
 	},
@@ -45,11 +42,6 @@ userSchema.pre('save', function (next) {
 userSchema.method('validatePassword', function (password) {
 	return bcrypt.compare(password, this.password)
 });
-
-
-
-userSchema.plugin(uniqueValidator);
-
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

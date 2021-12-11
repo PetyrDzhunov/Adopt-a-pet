@@ -47,10 +47,11 @@ router.post('/register',
 
 		const createdUser = new User({ name, email, password, phoneNumber, facebookURL });
 
+		//fix errorHandling ...(mongoose or express-validator)?
 		try {
 			await createdUser.save();
 		} catch (err) {
-			const mongooseError = parseError(err)[0];
+			const mongooseError = parseError(err);
 			let error;
 			if (mongooseError) {
 				error = new HttpError('Email is already in use. Please try again', 500)
@@ -60,7 +61,6 @@ router.post('/register',
 				return next(error);
 			};
 		};
-
 
 		let token = await jwt.sign({ userId: createdUser._id, email: createdUser.email }, JWT_KEY, { expiresIn: '1h' })
 

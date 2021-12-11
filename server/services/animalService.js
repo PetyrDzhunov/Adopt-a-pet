@@ -1,6 +1,7 @@
 const Animal = require('../models/Animal');
 const User = require('../models/User');
 const HttpError = require('../models/Http-error');
+const { parseError } = require('../util/parsers');
 
 const createAnimal = async (req, res, next) => {
 	const { name, gender, age, image, neutered, description, additionalInfo, species } = req.body;
@@ -23,22 +24,30 @@ const createAnimal = async (req, res, next) => {
 		await creator.save();
 	} catch (err) {
 		console.log(err);
-		const error = new HttpError('Could not create the animal, please try again later.', 500);
+		let error = new HttpError('Could not create the animal, please try again later.', 500);
 		return next(error);
 	};
 
 	return createdAnimal;
 };
 
-
-const getAllAnimals = (req, res, next) => {
+const getAllAnimals = async (req, res, next,) => {
 	return Animal.find({})
 };
 
+const getAllDogs = async (req, res, next) => {
+	return Animal.find({ species: 'dog' });
+};
 
+const getAllCats = async (req, res, next) => {
+	return Animal.find({ species: 'cat' });
+};
 
 
 module.exports = {
 	createAnimal,
-	getAllAnimals
+	getAllAnimals,
+	getAllDogs,
+	getAllCats
 };
+

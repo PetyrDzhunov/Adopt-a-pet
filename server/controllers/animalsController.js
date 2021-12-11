@@ -3,20 +3,40 @@ const { authentication: authorization } = require('../middlewares/authMiddlware'
 const animalService = require('../services/animalService');
 
 router.get('/', async (req, res) => {
-	//return all the animals here as a json;
 	const animals = await animalService.getAllAnimals();
 	res.json({ animals });
 });
 
-router.get('/dogs', (req, res, next) => {
-	// filter animals by species and return only the dogs;
-	res.json({ dogs: [] })
+router.get('/dogs', async (req, res, next) => {
+	let error;
+	let dogs;
+	try {
+		dogs = await animalService.getAllDogs();
+		if (dogs.length === 0) {
+			error = new HttpError('There are no dogs for adoption.', 500);
+			return next(error)
+		};
+	} catch (err) {
+		error = new HttpError('Something went wrong, please try again.');
+		return next(error);
+	};
+	res.json({ dogs })
 });
 
-router.get('/cats', (req, res, next) => {
-	//filter animals by species and return only the cats;
-	res.json({ cats: [] })
-
+router.get('/cats', async (req, res, next) => {
+	let error;
+	let cats;
+	try {
+		cats = await animalService.getAllCats();
+		if (cats.length === 0) {
+			error = new HttpError('There are no cats for adoption.', 500);
+			return next(error)
+		};
+	} catch (err) {
+		error = new HttpError('Something went wrong, please try again.');
+		return next(error);
+	};
+	res.json({ cats })
 });
 
 router.get('/:animalId', (req, res, next) => {
