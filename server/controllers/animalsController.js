@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const { authentication: authorization } = require('../middlewares/authMiddlware');
+const animalService = require('../services/animalService');
 
 router.get('/', (req, res) => {
 	//return all the animals here as a json;
@@ -21,15 +23,20 @@ router.get('/:animalId', (req, res, next) => {
 	res.json({ animal: 'animal' })
 });
 
-router.patch('/:animalId', (req, re, next) => {
+router.patch('/:animalId', authorization, (req, res, next) => {
 	// find an animal by id and update it (this is for edit);
+	res.json({ ok: true });
 });
 
-router.post('/api/animals', (req, res, next) => {
+router.post('/', authorization, (req, res, next) => {
 	//this is for adding an animal for adoption;
+	res.json({ ok: true });
 });
-
-
 
 
 module.exports = router;
+
+
+//"email": "dido@abv.bg",
+//password :123456
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWI0OGVkMGViYjQxNWZkOGQxMTQ4NWUiLCJlbWFpbCI6ImRpZG9AYWJ2LmJnIiwiaWF0IjoxNjM5MjIzNTU3fQ.BPSwYD9eE1G-t0q12ytFFwwSeWARQNS-OU5Ts_Pcuto

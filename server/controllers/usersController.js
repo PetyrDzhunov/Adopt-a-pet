@@ -5,7 +5,9 @@ const { parseError } = require('../util/parsers');
 const jwt = require('../util/jwt');
 const { JWT_KEY } = require('../config/constants');
 const { check, validationResult } = require('express-validator');
-const { isGuest } = require('../middlewares/authMiddlware');
+const { login } = require('../services/authService');
+const { authentication } = require('../middlewares/authMiddlware');
+
 
 router.post('/register',
 	[
@@ -71,11 +73,15 @@ router.post('/register',
 	});
 
 
-router.post('/login', isGuest, (req, res, next) => {
+router.post('/login', authentication, async (req, res, next) => {
 	const { email, password } = req.body;
-
-	// on this route users will login;
-	res.json({ ok: true });
+	try {
+		userData = await login({ email, password });
+	} catch (err) {
+		const error = new HttpError('Failed to authenticate!', 500);
+		return next(error);
+	};
+	res.json(userData);
 });
 
 router.get('/:userId/animals', (req, res, next) => {
