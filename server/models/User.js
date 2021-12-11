@@ -25,8 +25,8 @@ const userSchema = new mongoose.Schema({
 	facebookURL: {
 		type: String,
 	},
-	animalsOwned: [{ type: mongoose.Types.ObjectId, ref: 'Animal', required: true }]
-});
+	animalsOwned: [{ type: mongoose.Types.ObjectId, ref: 'Animal' }]
+}, { timestamps: true });
 
 userSchema.pre('save', function (next) {
 	bcrypt.genSalt(SALT_FOR_HASHING)
