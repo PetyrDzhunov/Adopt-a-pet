@@ -30,7 +30,7 @@ const createAnimal = async (req) => {
 };
 
 const getAllAnimals = () => {
-	return Animal.find({})
+	return Animal.find({}).lean();
 };
 
 const getAllDogs = () => {
@@ -92,7 +92,6 @@ const updateAnimal = async (req) => {
 		);
 		return next(error);
 	};
-
 	return animal;
 };
 

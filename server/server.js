@@ -3,10 +3,18 @@ const express = require('express');
 const { PORT } = require('./config/constants');
 const databaseConfig = require('./config/database-config');
 const expressConfig = require('./config/express-config');
+const HttpError = require('./models/Http-error');
 
 async function start() {
 	const app = express();
-	await databaseConfig(app);
+
+	try {
+		await databaseConfig(app);
+	} catch (err) {
+		throw new Error(err);
+	};
+
+
 	expressConfig(app);
 
 	app.listen(PORT, () => {

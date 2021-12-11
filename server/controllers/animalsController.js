@@ -6,7 +6,7 @@ const HttpError = require('../models/Http-error');
 
 router.get('/', async (req, res) => {
 	const animals = await animalService.getAllAnimals();
-	res.json({ animals });
+	res.json(animals);
 });
 
 router.get('/dogs', async (req, res, next) => {
@@ -67,8 +67,6 @@ router.patch('/:animalId',
 		res.json(updatedAnimal);
 	});
 
-
-
 router.post('/',
 	[
 		check('name').not().isEmpty(),
@@ -95,17 +93,5 @@ router.post('/',
 		res.json(createdAnimal);
 	});
 
-// const error = new HttpError('Invalid inputs, please fill all the required fields!', 500);
-// throw error;
-
-
 module.exports = router;
-// http://localhost:3030/api/animals/61b4be51dfbe2714a2619743
 
-// {
-// 	"name":"Stelko",
-// 	"gender":"female",
-// 	"species" : "cat",
-// 	"age": 6,
-// 	"neutered": "yes"
-//  }
