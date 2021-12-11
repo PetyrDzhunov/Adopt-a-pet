@@ -31,16 +31,21 @@ const createAnimal = async (req, res, next) => {
 	return createdAnimal;
 };
 
-const getAllAnimals = async (req, res, next,) => {
+const getAllAnimals = (req, res, next,) => {
 	return Animal.find({})
 };
 
-const getAllDogs = async (req, res, next) => {
+const getAllDogs = (req, res, next) => {
 	return Animal.find({ species: 'dog' });
 };
 
-const getAllCats = async (req, res, next) => {
+
+const getAllCats = (req, res, next) => {
 	return Animal.find({ species: 'cat' });
+};
+
+const getAnimalById = (id) => {
+	return Animal.find({ _id: id });
 };
 
 
@@ -48,6 +53,7 @@ module.exports = {
 	createAnimal,
 	getAllAnimals,
 	getAllDogs,
-	getAllCats
+	getAllCats,
+	getAnimalById
 };
 

@@ -39,9 +39,9 @@ router.get('/cats', async (req, res, next) => {
 	res.json({ cats })
 });
 
-router.get('/:animalId', (req, res, next) => {
-	//find a animal by id ( this is for details);
-	res.json({ animal: 'animal' })
+router.get('/:animalId', async (req, res, next) => {
+	const animal = await animalService.getAnimalById(req.params.animalId);
+	res.json(animal)
 });
 
 router.patch('/:animalId', authorization, (req, res, next) => {
