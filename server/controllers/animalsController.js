@@ -46,11 +46,28 @@ router.get('/:animalId', async (req, res, next) => {
 	res.json(animal);
 });
 
-router.patch('/:animalId', authorization, async (req, res, next) => {
-	const updatedAnimal = await animalService.updateAnimal(req);
+router.patch('/:animalId',
+	[
+		check('name').not().isEmpty(),
+		check('gender').not().isEmpty(),
+		check('species').not().isEmpty(),
+		check('age').not().isEmpty(),
+		check('neutered').not().isEmpty(),
+	],
+	authorization,
+	async (req, res, next) => {
+		let updatedAnimal;
 
-	res.json(updatedAnimal);
-});
+		try {
+			updatedAnimal = await animalService.updateAnimal(req);
+		} catch (error) {
+			return next(error);
+		};
+
+		res.json(updatedAnimal);
+	});
+
+
 
 router.post('/',
 	[
