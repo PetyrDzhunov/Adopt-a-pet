@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { authentication: authorization } = require('../middlewares/authMiddlware');
 const animalService = require('../services/animalService');
+const { check, validationResult } = require('express-validator');
+const HttpError = require('../models/Http-error');
 
 router.get('/', async (req, res) => {
 	const animals = await animalService.getAllAnimals();
@@ -50,16 +52,34 @@ router.patch('/:animalId', authorization, async (req, res, next) => {
 	res.json(updatedAnimal);
 });
 
-router.post('/', authorization, async (req, res, next) => {
-	let createdAnimal;
-	try {
-		createdAnimal = await animalService.createAnimal(req.body);
-	} catch (err) {
-		return next(err);
-	};
+router.post('/',
+	[
+		check('name').not().isEmpty(),
+		check('gender').not().isEmpty(),
+		check('species').not().isEmpty(),
+		check('age').not().isEmpty(),
+		check('neutered').not().isEmpty(),
+	],
+	authorization, async (req, res, next) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return next(
+				new HttpError('Invalid inputs passed, please check your data.', 422)
+			);
+		};
 
-	res.json(createdAnimal);
-});
+		let createdAnimal;
+		try {
+			createdAnimal = await animalService.createAnimal(req);
+		} catch (err) {
+			return next(err);
+		};
+
+		res.json(createdAnimal);
+	});
+
+// const error = new HttpError('Invalid inputs, please fill all the required fields!', 500);
+// throw error;
 
 
 module.exports = router;

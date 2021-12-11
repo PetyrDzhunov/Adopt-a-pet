@@ -3,19 +3,15 @@ const User = require('../models/User');
 const HttpError = require('../models/Http-error');
 const { parseError } = require('../util/parsers');
 
-const createAnimal = async (params) => {
-	const { name, gender, age, image, neutered, description, additionalInfo, species } = params;
-	if (name == '' || !gender || !age || !neutered || !species) {
-		const error = new HttpError('Invalid inputs, please fill all the required fields!', 500);
-		throw error;
-	};
+const createAnimal = async (req) => {
+	const { name, gender, age, image, neutered, description, additionalInfo, species } = req.body;
 
 	let creator;
 
 	try {
 		creator = await User.findOne({ _id: req.userData.userId });
 	} catch (err) {
-		const error = new HttpError('Could not find a user with the ID you provided.');
+		const error = new HttpError('Could not find a user with the ID you provided.', 500);
 		throw error;
 	};
 
