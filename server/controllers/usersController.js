@@ -62,7 +62,7 @@ router.post('/register',
 			};
 		};
 
-		let token = await jwt.sign({ userId: createdUser._id, email: createdUser.email }, JWT_KEY, { expiresIn: '1h' })
+		let token = await jwt.sign({ userId: createdUser._id, email: createdUser.email }, JWT_KEY);
 
 		if (!token) {
 			const error = new HttpError('Signing up failed, please try again', 500);

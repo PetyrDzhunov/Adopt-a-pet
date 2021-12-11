@@ -41,23 +41,34 @@ router.get('/cats', async (req, res, next) => {
 
 router.get('/:animalId', async (req, res, next) => {
 	const animal = await animalService.getAnimalById(req.params.animalId);
-	res.json(animal)
+	res.json(animal);
 });
 
-router.patch('/:animalId', authorization, (req, res, next) => {
-	// find an animal by id and update it (this is for edit);
-	res.json({ ok: true });
+router.patch('/:animalId', authorization, async (req, res, next) => {
+	const updatedAnimal = await animalService.updateAnimal(req);
+
+	res.json(updatedAnimal);
 });
 
 router.post('/', authorization, async (req, res, next) => {
-	let createdAnimal = await animalService.createAnimal(req);
+	let createdAnimal;
+	try {
+		createdAnimal = await animalService.createAnimal(req.body);
+	} catch (err) {
+		return next(err);
+	};
+
 	res.json(createdAnimal);
 });
 
 
 module.exports = router;
+// http://localhost:3030/api/animals/61b4be51dfbe2714a2619743
 
-
-//"email": "dido@abv.bg",
-//password :123456
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWI0OGVkMGViYjQxNWZkOGQxMTQ4NWUiLCJlbWFpbCI6ImRpZG9AYWJ2LmJnIiwiaWF0IjoxNjM5MjIzNTU3fQ.BPSwYD9eE1G-t0q12ytFFwwSeWARQNS-OU5Ts_Pcuto
+// {
+// 	"name":"Stelko",
+// 	"gender":"female",
+// 	"species" : "cat",
+// 	"age": 6,
+// 	"neutered": "yes"
+//  }
