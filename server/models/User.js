@@ -8,22 +8,27 @@ const userSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
+		trim: true
 	},
 	email: {
 		type: String,
 		required: true,
-		unique: true
+		unique: true,
+		trim: true
 	},
 	password: {
 		type: String,
-		required: true
+		required: true,
+		trim: true
 	},
 	phoneNumber: {
 		type: String,
 		required: true,
+		trim: true
 	},
 	facebookURL: {
 		type: String,
+		trim: true
 	},
 	animalsOwned: [{ type: mongoose.Types.ObjectId, ref: 'Animal' }]
 }, { timestamps: true });

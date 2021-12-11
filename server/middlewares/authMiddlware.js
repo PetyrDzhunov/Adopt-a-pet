@@ -10,6 +10,7 @@ const authentication = async (req, res, next) => {
 			throw new Error('Unauthorized');
 		};
 		const decodedToken = await jwt.verify(token, JWT_KEY);
+		req.userData = { userId: decodedToken.userId };
 		next();
 	} catch (err) {
 		console.log(err);

@@ -5,6 +5,4 @@ const usersController = require('./controllers/usersController');
 router.use('/animals', animalsController);
 router.use('/users', usersController);
 
-
-
 module.exports = router;

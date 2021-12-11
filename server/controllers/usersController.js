@@ -53,7 +53,7 @@ router.post('/register',
 			const mongooseError = parseError(err)[0];
 			let error;
 			if (mongooseError) {
-				error = new HttpError('Email is already in use. Please try again.', 500)
+				error = new HttpError('Email is already in use. Please try again', 500)
 				return next(error);
 			} else {
 				error = new HttpError('Could not create the user, please try again later.', 500);

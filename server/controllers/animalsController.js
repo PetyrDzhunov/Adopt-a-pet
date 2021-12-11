@@ -2,9 +2,10 @@ const router = require('express').Router();
 const { authentication: authorization } = require('../middlewares/authMiddlware');
 const animalService = require('../services/animalService');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
 	//return all the animals here as a json;
-	res.json({ animals: [] });
+	const animals = await animalService.getAllAnimals();
+	res.json({ animals });
 });
 
 router.get('/dogs', (req, res, next) => {
@@ -28,9 +29,9 @@ router.patch('/:animalId', authorization, (req, res, next) => {
 	res.json({ ok: true });
 });
 
-router.post('/', authorization, (req, res, next) => {
-	//this is for adding an animal for adoption;
-	res.json({ ok: true });
+router.post('/', authorization, async (req, res, next) => {
+	let createdAnimal = await animalService.createAnimal(req);
+	res.json(createdAnimal);
 });
 
 
