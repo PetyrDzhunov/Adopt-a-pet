@@ -1,0 +1,29 @@
+.main-navigation {}
+
+.main-navigation__list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    list-style: none;
+}
+
+.main-navigation__list-item {
+    height: 100%;
+}
+
+.main-navigation__link {
+    text-decoration: none;
+    margin: 12px;
+    color: #CEF7A0;
+}
+
+.active {
+    color: #58FCEC;
+    border-bottom: 2px solid #58FCEC;
+}
+
+.main-navigation__navLinks {
+    display: flex;
+    flex-flow: row wrap;
+    margin: auto;
+}

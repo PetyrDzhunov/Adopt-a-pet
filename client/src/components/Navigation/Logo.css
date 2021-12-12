@@ -1,0 +1,8 @@
+.main-navigation__logo {
+    height: 60px;
+}
+
+.main-navigation__logo img {
+    height: 100%;
+    border-radius: 50%;
+}
