@@ -2,7 +2,6 @@ import Card from '../../../components/Card';
 import './AnimalsItem.css';
 
 const AnimalsItem = ({ animal }) => {
-	console.log(animal);
 	return (
 		<Card>
 			<li className='animals-section-list__item'>
