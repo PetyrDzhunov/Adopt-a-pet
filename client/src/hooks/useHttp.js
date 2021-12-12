@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-export const useHttp = async (props) => {
+export const useHttp = async () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(false);
 
@@ -9,11 +9,11 @@ export const useHttp = async (props) => {
 		try {
 			const response = await fetch(url, { method, body, headers });
 
+			const responseData = await response.json();
+
 			if (!response.ok) {
 				throw new Error(responseData.message);
 			};
-
-			const responseData = await response.json();
 
 			setIsLoading(false);
 			return responseData;
