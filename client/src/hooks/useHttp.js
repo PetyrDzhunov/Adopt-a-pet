@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-export const useHttp = async () => {
+export const useHttp = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(false);
 
