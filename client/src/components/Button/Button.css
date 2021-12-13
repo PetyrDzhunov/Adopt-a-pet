@@ -1,0 +1,37 @@
+.primary-button--small {
+    margin-top: 12px;
+    border: 1px solid #941D76;
+    background-color: #D4F2DB;
+    padding: 8px 12px;
+    border-top-left-radius: 25%;
+    border-bottom-right-radius: 25%;
+    cursor: pointer;
+    font-weight: bolder;
+    border: 1px solid #941D76;
+    color: #941D76;
+}
+
+.primary-button--small:hover {
+    transition: 0.3s ease-out;
+    background-color: #CEF7A0;
+}
+
+.primary-button--big:hover {
+    transition: 0.3s ease-out;
+    background-color: #CEF7A0;
+}
+
+.primary-button--big {
+    margin-top: 12px;
+    border: 1px solid #941D76;
+    background-color: #D4F2DB;
+    padding: 12px 24px;
+    border-top-left-radius: 25%;
+    border-bottom-right-radius: 25%;
+    cursor: pointer;
+    font-weight: bolder;
+    border: 1px solid #941D76;
+    color: #941D76;
+}
+
+.secondary-button {}
