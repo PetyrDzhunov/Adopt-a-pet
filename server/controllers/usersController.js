@@ -16,14 +16,15 @@ router.post('/register',
 		check('password').isLength({ min: 6 })
 	],
 	async (req, res, next) => {
-		const errors = validationResult(req);
+		const errors = validationResult(req.body);
+		console.log(errors);
 		if (!errors.isEmpty()) {
 			return next(
 				new HttpError('Invalid inputs passed, please check your data.', 422)
 			);
 		};
+		const { name, email, password, phoneNumber, facebookURL } = req.body.userData;
 
-		const { name, email, password, phoneNumber, facebookURL } = req.body;
 
 		let existingUser;
 

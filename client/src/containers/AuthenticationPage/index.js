@@ -5,8 +5,8 @@ import PageWrapper from '../../components/PageWrapper.js';
 import Footer from '../../components/Footer';
 import './Authentication.css';
 import Button from '../../components/Button';
-import LoginForm from './LoginForm';
-import RegisterForm from './RegisterForm';
+import LoginForm from './RegisterForm';
+import RegisterForm from './LoginForm';
 import Paw from '../../components/Paw/Paw';
 import PawList from './PawList';
 
@@ -23,15 +23,13 @@ const Authentication = () => {
 			<Header />
 			<PawList />
 			<main>
-				{!inLoginMode &&
+				{inLoginMode &&
 					<LoginForm loginModeSwitchHandler={loginModeSwitchHandler} inLoginMode={inLoginMode} formIsValid={formIsValid} />
 				}
-				{inLoginMode &&
+				{!inLoginMode &&
 					<RegisterForm loginModeSwitchHandler={loginModeSwitchHandler} inLoginMode={inLoginMode} formIsValid={formIsValid} />
 				}
 			</main>
-
-
 			<Footer><p>&copy; Petar Dzhunov</p></Footer>
 		</PageWrapper >
 	);

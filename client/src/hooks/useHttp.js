@@ -8,7 +8,6 @@ export const useHttp = () => {
 		setIsLoading(true);
 		try {
 			const response = await fetch(url, { method, body, headers });
-
 			const responseData = await response.json();
 
 			if (!response.ok) {

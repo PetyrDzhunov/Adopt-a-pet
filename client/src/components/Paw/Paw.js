@@ -9,9 +9,9 @@ const Paw = (props) => {
 				left: `${props.left}`,
 				right: `${props.right}`
 			}}>
-			<div class="paw">
-				<div class="inner"></div>
-				<div class="bottom"></div>
+			<div className="paw">
+				<div className="inner"></div>
+				<div className="bottom"></div>
 			</div>
 		</div>
 	);

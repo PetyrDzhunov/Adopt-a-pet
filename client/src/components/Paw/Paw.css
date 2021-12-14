@@ -7,11 +7,9 @@
     height: 100px;
     position: relative;
     border-radius: 50%;
-    background: #941D76;
     ;
     -webkit-transition: all .5s cubic-bezier(0, .73, .73, 1.52);
     transition: all .5s cubic-bezier(0, .73, .73, 1.52);
-    box-shadow: -2px 2px 4px 1px rgba(0, 0, 0, 1);
 }
 
 .paw.huge {
@@ -30,7 +28,7 @@
     display: block;
     width: 22%;
     height: 32%;
-    background: #000;
+    background: #941D76;
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     left: 25%;
     top: 10%;
@@ -42,7 +40,7 @@
     display: block;
     width: 22%;
     height: 32%;
-    background: #000;
+    background: #941D76;
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     right: 25%;
     top: 10%;
@@ -66,7 +64,7 @@
     display: block;
     width: 18%;
     height: 30%;
-    background: #CEF7A0;
+    background: #941D76;
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     left: 10%;
     top: 35%;
@@ -78,7 +76,7 @@
     display: block;
     width: 18%;
     height: 30%;
-    background: #CEF7A0;
+    background: #941D76;
     ;
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     right: 10%;
@@ -89,7 +87,7 @@
 .bottom {
     width: 48%;
     height: 30%;
-    background: #000;
+    background: #941D76;
     border-radius: 70% 70% 50% 50% / 90% 90% 50% 50%;
     position: absolute;
     bottom: 12%;
@@ -101,7 +99,7 @@
     position: absolute;
     bottom: -11%;
     left: 0;
-    background: #000;
+    background: #941D76;
     width: 50%;
     height: 75%;
     border-radius: 55% 105% 68% 79% / 60% 60% 29% 50%;
@@ -113,7 +111,7 @@
     position: absolute;
     bottom: -11%;
     right: 0;
-    background: #000;
+    background: #941D76;
     width: 50%;
     height: 75%;
     border-radius: 105% 55% 79% 68% / 60% 60% 50% 29%;
