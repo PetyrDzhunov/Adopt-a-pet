@@ -22,6 +22,11 @@ const Navigation = () => {
 						<NavLink className={(navData) => navData.isActive ? "active main-navigation__link" : "main-navigation__link"} className="main-navigation__link" to='/dogs'>Dogs</NavLink>
 					</li>
 
+					{isLoggedIn &&
+						<li className='main-navigation__list-item'>
+							<NavLink className={(navData) => navData.isActive ? "active main-navigation__link" : "main-navigation__link"} className="main-navigation__link" to='/create-animal'>Add animal</NavLink>
+						</li>
+					}
 					{!isLoggedIn &&
 						<li className='main-navigation__list-item'>
 							<NavLink className={(navData) => navData.isActive ? "active main-navigation__link" : "main-navigation__link"} className="main-navigation__link" to='/authenticate'>Authenticate</NavLink>

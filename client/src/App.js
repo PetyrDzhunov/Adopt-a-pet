@@ -4,6 +4,7 @@ import Authentication from './containers/AuthenticationPage';
 import CatsPage from './containers/CatsPage';
 import DogsPage from './containers/DogsPage';
 import HomePage from './containers/HomePage';
+import CreateAnimalPage from './containers/CreateAnimalPage';
 
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
       <Route path="/cats" element={<CatsPage />} />
       <Route path="/dogs" element={<DogsPage />} />
       <Route path="/authenticate" element={<Authentication />} />
+      <Route path="/create-animal" element={<CreateAnimalPage />} />
     </Routes>
   );
 };
