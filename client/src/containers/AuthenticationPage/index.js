@@ -7,6 +7,8 @@ import './Authentication.css';
 import Button from '../../components/Button';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
+import Paw from '../../components/Paw/Paw';
+import PawList from './PawList';
 
 const Authentication = () => {
 	const [inLoginMode, setInLoginMode] = useState(false);
@@ -19,12 +21,11 @@ const Authentication = () => {
 	return (
 		<PageWrapper>
 			<Header />
-
+			<PawList />
 			<main>
 				{!inLoginMode &&
 					<LoginForm loginModeSwitchHandler={loginModeSwitchHandler} inLoginMode={inLoginMode} formIsValid={formIsValid} />
 				}
-
 				{inLoginMode &&
 					<RegisterForm loginModeSwitchHandler={loginModeSwitchHandler} inLoginMode={inLoginMode} formIsValid={formIsValid} />
 				}

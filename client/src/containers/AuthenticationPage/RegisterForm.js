@@ -24,8 +24,7 @@ const RegisterForm = (props) => {
 				}, 400);
 			}}
 		>
-
-			<Form className='register-form'>
+			<Form className='form'>
 
 				<div className='form-control'>
 					<label htmlFor="email">Email</label>

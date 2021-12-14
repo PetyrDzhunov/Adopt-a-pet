@@ -1,4 +1,4 @@
-.register-form {
+.form {
     border: 1px solid black;
     display: flex;
     flex-flow: column wrap;
@@ -6,19 +6,19 @@
     align-items: center;
     width: fit-content;
     padding: 12px;
-    margin: 0 auto;
+    margin: 60px auto;
     border-radius: 25%;
     box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.8);
 }
 
-.register-form label {
+.form label {
     display: block;
     text-align: center;
     color: #941D76;
     margin: 4px 0px;
 }
 
-.register-form input {
+.form input {
     padding: 4px;
     border-top-left-radius: 25%;
     border-bottom-right-radius: 25%;

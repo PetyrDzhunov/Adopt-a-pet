@@ -28,7 +28,7 @@ const LoginForm = (props) => {
 				}, 400);
 			}}
 		>
-			<Form className='register-form'>
+			<Form className='form'>
 
 				<div className='form-control'>
 					<label htmlFor="name">Name</label>
