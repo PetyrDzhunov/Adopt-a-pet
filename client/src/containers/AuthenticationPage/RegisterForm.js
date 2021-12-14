@@ -8,12 +8,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { register, logout } from '../../store/auth';
 import { useHttp } from '../../hooks/useHttp';
 import { BASE_API_URL } from '../../constants';
-
+import { setData } from '../../utils/localStorage';
+import { useNavigate } from 'react-router-dom';
 
 
 const RegisterForm = (props) => {
-	const { isLoading, error, clearError, sendRequest } = useHttp();
+	const navigate = useNavigate();
 
+	const { isLoading, error, clearError, sendRequest } = useHttp();
 
 	const validationSchema = {
 		email: Yup.string().email('Invalid email address.').required('Email is required.'),
@@ -22,8 +24,6 @@ const RegisterForm = (props) => {
 		password: Yup.string().required('Password is required.').min(6, 'Password should be min 6 chars'),
 		facebookURL: Yup.string().matches(/^[a-z]{8}.com\/[A-Za-z0-9]{1,}$/i, 'Invalid facebook link!'),
 	};
-
-
 
 	const dispatch = useDispatch();
 
@@ -38,12 +38,12 @@ const RegisterForm = (props) => {
 
 					const registerNow = async () => {
 						const responseData = await sendRequest(`${BASE_API_URL}/users/register`, 'POST', JSON.stringify({ userData }), { 'Content-type': 'application/json' });
-						console.log(responseData);
+						setData(responseData);
 					};
 					registerNow();
-
 					dispatch(register(userData));
 					setSubmitting(false);
+					navigate('/');
 				}, 400);
 			}}
 		>
