@@ -23,6 +23,7 @@
 <li>cors</li>
 </ul>
 
-<h1>As a database i am using noSQL mongoDB</h1>
+<h1>Database</h1>
+<li>noSQL mongoDB</li>
 <li>I am using mongoose for making my queries and work with DB at all easier and cleaner </li>
 
