@@ -2,7 +2,7 @@ import React from 'react'
 
 const ValidationError = (props) => {
 	return (
-		<span style={{ color: '#CC2936' }}>{props.children}</span>
+		<span style={{ color: '#CC2936', margin: props.margin }}>{props.children}</span>
 	);
 };
 

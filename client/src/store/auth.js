@@ -1,19 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login as loginService } from "../services/usersService";
 
 export const authSlice = createSlice({
 	name: "auth",
 	initialState: {
-		isLoggedIn: false
+		isLoggedIn: false,
+		userId: null,
+		token: null,
 	},
 	reducers: {
 		register: (state, action) => {
-			console.log(action.payload);
+			state.userId = action.payload.userId;
+			state.token = action.payload.token;
 			state.isLoggedIn = true;
 		},
 		login: (state, action) => {
-			console.log(action.payload);
 			state.isLoggedIn = true;
+			state.userId = action.payload.userId;
+			state.token = action.payload.token;
 		},
 		logout: (state) => state.isLoggedIn = false,
 	}

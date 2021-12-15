@@ -36,14 +36,19 @@ const RegisterForm = (props) => {
 					const { name, email, password, phoneNumber, facebookURL } = values;
 					const userData = { name, email, password, phoneNumber, facebookURL };
 
+					let responseData;
 					const registerNow = async () => {
-						const responseData = await sendRequest(`${BASE_API_URL}/users/register`, 'POST', JSON.stringify({ userData }), { 'Content-type': 'application/json' });
-						setData(responseData);
+						try {
+							responseData = await sendRequest(`${BASE_API_URL}/users/register`, 'POST', JSON.stringify({ userData }), { 'Content-type': 'application/json' });
+							dispatch(register({ ...userData, userId: responseData.userId, token: responseData.token })); // dispatch to my redux recuder 
+							setData(responseData); // setting the token,id,email to localStorage
+							navigate('/'); // navigate go my home page
+						} catch (err) {
+							// different error-handling -> with useHttp hook we get an error state which we can use down in our component
+						};
 					};
 					registerNow();
-					dispatch(register(userData));
 					setSubmitting(false);
-					navigate('/');
 				}, 400);
 			}}
 		>
@@ -69,7 +74,6 @@ const RegisterForm = (props) => {
 				<ErrorMessage name="password" component={ValidationError} />
 
 
-
 				<div className='form-control'>
 					<label htmlFor="phoneNumber">Phone number</label>
 					<Field type="phoneNumber" id="phoneNumber" name="phoneNumber" />
@@ -86,6 +90,7 @@ const RegisterForm = (props) => {
 
 
 				<Button type="submit" disabled={props.formIsValid} className='primary-button--big'>{props.inLoginMode ? 'Sign in' : 'Sign up'}</Button>
+				{error && <ValidationError margin="12px">{error}</ValidationError>}
 				<hr style={{ width: '220px' }} />
 				<Button type='submit' onClick={props.loginModeSwitchHandler} className='primary-button--big'>{props.inLoginMode ? 'Switch to sign up' : 'Switch to sign in'}</Button>
 			</Form>

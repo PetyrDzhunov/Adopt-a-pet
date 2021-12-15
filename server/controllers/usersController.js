@@ -74,12 +74,13 @@ router.post('/register',
 	});
 
 
-router.post('/login', authentication, async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
 	const { email, password } = req.body;
+	console.log(email, password);
 	try {
 		userData = await login({ email, password });
 	} catch (err) {
-		const error = new HttpError('Failed to authenticate!', 500);
+		const error = new HttpError('Email or password are invalid!', 401);
 		return next(error);
 	};
 	res.json(userData);
