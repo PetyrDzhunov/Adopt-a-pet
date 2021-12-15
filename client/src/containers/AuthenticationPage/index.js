@@ -3,11 +3,8 @@ import { useState } from 'react';
 import Header from '../../components/Header';
 import PageWrapper from '../../components/PageWrapper.js';
 import Footer from '../../components/Footer';
-import './Authentication.css';
-import Button from '../../components/Button';
 import LoginForm from './RegisterForm';
 import RegisterForm from './LoginForm';
-import Paw from '../../components/Paw/Paw';
 import PawList from './PawList';
 
 const Authentication = () => {
