@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import './Navigation.css';
 
-const Navigation = () => {
+const Navigation = (props) => {
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
 	return (
@@ -29,7 +29,7 @@ const Navigation = () => {
 							</li>
 
 							<li className='main-navigation__list-item'>
-								<NavLink className={(navData) => navData.isActive ? "active main-navigation__link" : "main-navigation__link"} className="main-navigation__link" to='/logout'>Logout</NavLink>
+								<NavLink onClick={props.onLogout} className={(navData) => navData.isActive ? "active main-navigation__link" : "main-navigation__link"} to="/" className="main-navigation__link">Logout</NavLink>
 							</li>
 						</>
 					}
