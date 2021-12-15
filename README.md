@@ -5,7 +5,7 @@
 <li>It's goal is to make able a person add an animal for adoption so anyone could find them on a phone/email and contact them about the current animal.</li>
 </ul>
 
-<h1>For the front end I am using : </h1>
+<h1>Front end</h1>
 <ul>
 <li>React</li>
 <li>React-redux</li>
@@ -14,7 +14,7 @@
 <li>Formik</li>
 </ul>
 
-<h1>For the back end I am using : </h1>
+<h1>Back end</h1>
 <ul>
 <li>Express</li>
 <li>express-validator</li>
