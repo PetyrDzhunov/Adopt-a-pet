@@ -5,16 +5,18 @@ import CatsPage from './containers/CatsPage';
 import DogsPage from './containers/DogsPage';
 import HomePage from './containers/HomePage';
 import CreateAnimalPage from './containers/CreateAnimalPage';
-
+import useAuth from './hooks/useAuth';
 
 const App = () => {
+  const isLoggedIn = useAuth();
+
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/cats" element={<CatsPage />} />
       <Route path="/dogs" element={<DogsPage />} />
-      <Route path="/authenticate" element={<Authentication />} />
-      <Route path="/create-animal" element={<CreateAnimalPage />} />
+      {!isLoggedIn && <Route path="/authenticate" element={<Authentication />} />}
+      {isLoggedIn && <Route path="/create-animal" element={<CreateAnimalPage />} />}
     </Routes>
   );
 };

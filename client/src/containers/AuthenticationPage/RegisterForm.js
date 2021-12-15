@@ -45,6 +45,9 @@ const RegisterForm = (props) => {
 							navigate('/'); // navigate go my home page
 						} catch (err) {
 							// different error-handling -> with useHttp hook we get an error state which we can use down in our component
+							setTimeout(() => {
+								clearError();
+							}, 2000)
 						};
 					};
 					registerNow();

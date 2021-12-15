@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import './Navigation.css';
 
 const Navigation = (props) => {
@@ -29,7 +29,7 @@ const Navigation = (props) => {
 							</li>
 
 							<li className='main-navigation__list-item'>
-								<NavLink onClick={props.onLogout} className={(navData) => navData.isActive ? "active main-navigation__link" : "main-navigation__link"} to="/" className="main-navigation__link">Logout</NavLink>
+								<Link onClick={props.onLogout} to="/" className="main-navigation__link">Logout</Link>
 							</li>
 						</>
 					}

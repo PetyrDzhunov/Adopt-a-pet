@@ -39,7 +39,7 @@ const LoginForm = (props) => {
 						} catch (err) {
 							setTimeout(() => {
 								clearError();
-							}, 3000)
+							}, 2000)
 						};
 					};
 					loginNow();
