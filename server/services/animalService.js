@@ -6,6 +6,7 @@ const { parseError } = require('../util/parsers');
 const createAnimal = async (req) => {
 	const { name, gender, age, image, neutered, description, additionalInfo, species } = req.body;
 
+	console.log(name, gender, age);
 	if (!name || !gender || !age || !neutered || !species) {
 		const error = new HttpError('Invalid inputs, please check the data you submitted');
 		return next(error);

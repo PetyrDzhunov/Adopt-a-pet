@@ -24,8 +24,6 @@ router.post('/register',
 			);
 		};
 		const { name, email, password, phoneNumber, facebookURL } = req.body.userData;
-
-
 		let existingUser;
 
 		try {

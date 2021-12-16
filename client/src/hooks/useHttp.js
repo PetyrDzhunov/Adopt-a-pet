@@ -7,6 +7,7 @@ export const useHttp = () => {
 	const sendRequest = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
 		setIsLoading(true);
 		try {
+			console.log(url, method, body, headers);
 			const response = await fetch(url, { method, body, headers });
 			const responseData = await response.json();
 
@@ -17,6 +18,7 @@ export const useHttp = () => {
 			setIsLoading(false);
 			return responseData;
 		} catch (err) {
+			console.log(err);
 			setError(err.message);
 			setIsLoading(false);
 			throw err;
