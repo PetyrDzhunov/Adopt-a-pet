@@ -53,13 +53,13 @@ const CreateAnimalForm = () => {
 			initialValues={{ name: '', gender: 'male', age: 0, neutered: 'no', species: 'dog', file: '' }}
 			validationSchema={Yup.object(validationSchema)}
 			onSubmit={(values, { setSubmitting }) => {
-				values.file = alt;
+
 				values.age = Number(values.age);
 				const createPet = async () => {
 					try {
 						const createdAnimal = await sendRequest(`${BASE_API_URL}/animals`, 'POST', JSON.stringify(values), {
-							'Content-Type:': 'application/json',
-							'Authorization': `Bearer ${token}`
+							'Content-Type': 'application/json',
+							Authorization: `Bearer ${token}`
 						});
 						console.log(createdAnimal);
 					} catch (err) {
