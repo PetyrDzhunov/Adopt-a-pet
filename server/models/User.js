@@ -31,7 +31,6 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 userSchema.pre('save', function (next) {
-
 	bcrypt.hash(this.password, SALT_FOR_HASHING)
 		.then(hash => {
 			this.password = hash
@@ -40,8 +39,7 @@ userSchema.pre('save', function (next) {
 });
 
 userSchema.method('validatePassword', function (password) {
-	console.log(password, this.password);
-	return bcrypt.compare(password, this.password)
+	return bcrypt.compare(password, this.password);
 });
 
 const User = mongoose.model('User', userSchema);

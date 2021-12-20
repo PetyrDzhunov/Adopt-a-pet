@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import "firebase/storage";
+import firebase from 'firebase/compat/app';
+import "firebase/compat/storage";
 
 
 const firebaseConfig = {
@@ -11,4 +11,9 @@ const firebaseConfig = {
 	appId: "1:1061977746819:web:99ace837bd4b1af26d5ab6"
 };
 
-export const app = initializeApp(firebaseConfig);
+
+firebase.initializeApp(firebaseConfig);
+
+const projectStorage = firebase.storage();
+
+export { projectStorage };

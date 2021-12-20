@@ -10,10 +10,11 @@ import { useHttp } from '../../hooks/useHttp';
 import { useSelector } from 'react-redux';
 import { BASE_API_URL } from '../../constants';
 import { useNavigate } from 'react-router-dom';
-import { app } from '../../firebase';
+import ProgressBar from './ProgressBar';
 
 import '../../components/ImgPreview/ImgPreview.css';
 import '../AuthenticationPage/Forms.css';
+import useStorage from '../../hooks/useStorage';
 
 
 
@@ -27,23 +28,34 @@ const validationSchema = {
 const CreateAnimalForm = () => {
 	const navigate = useNavigate();
 
+	const types = ['image/png', 'image/jpeg', 'image/jpg'];
+
 	const token = useSelector(state => state.auth.token);
 	const { clearError, error, isLoading, sendRequest } = useHttp();
 
-	const [{ alt, src, file }, setImg] = useState({
-		src: placeholder,
-		alt: 'Upload an Image',
-		file: null
+	const [{ alt, src }, setImg] = useState({
+		alt: 'Upload image',
+		src: placeholder
 	});
 
+	const [file, setFile] = useState(null);
+
+
+	// const { progress, url, error: err } = useStorage(file);
+
 	const handleImg = (e) => {
-		if (e.target.files[0]) {
+		let selected = e.target.files[0];
+		if (selected) {
+			setFile(selected);
 			setImg({
-				src: URL.createObjectURL(e.target.files[0]),
-				alt: e.target.files[0].name,
-				file: e.target.files[0],
+				alt: selected.name,
+				src: URL.createObjectURL(selected),
 			});
+		} else {
+			setFile(null);
+			console.log('Please select an image file(png or jpeg)');
 		};
+
 	};
 
 	return (
@@ -55,19 +67,14 @@ const CreateAnimalForm = () => {
 				values.age = Number(values.age);
 				const createPet = async () => {
 					try {
+						console.log('here');
 						const createdAnimal = await sendRequest(`${BASE_API_URL}/animals`, 'POST', JSON.stringify(values), {
 							'Content-Type': 'application/json',
 							Authorization: `Bearer ${token}`
 						});
-
-						const storageRef = app.storage().ref();
-						const fileRef = storageRef.child(file.name);
-						fileRef.put(file)
-							.then(() => {
-								console.log('Uploaded a file!');
-								navigate('/')
-
-							});
+						console.log(createdAnimal);
+						navigate('/')
+						// upload file;
 					} catch (err) {
 						// if unable to be created show the error
 						console.log(err);
@@ -104,6 +111,7 @@ const CreateAnimalForm = () => {
 					<ImgPreview src={src} alt={alt} />
 					<label htmlFor="image">Image</label>
 					<input id="file" accept='.png, .jpg, .jpeg' name="file" type="file" onChange={handleImg} />
+					{file && <ProgressBar file={file} setFile={setFile} />}
 				</div>
 				<ErrorMessage name="image" component={ValidationError} />
 
