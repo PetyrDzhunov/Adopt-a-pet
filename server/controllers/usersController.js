@@ -51,6 +51,7 @@ router.post('/register',
 			await createdUser.save();
 		} catch (err) {
 			const mongooseError = parseError(err);
+			console.log(mongooseError);
 			let error;
 			if (mongooseError) {
 				error = new HttpError('Email is already in use. Please try again', 500)
@@ -74,10 +75,11 @@ router.post('/register',
 
 router.post('/login', async (req, res, next) => {
 	const { email, password } = req.body;
-	console.log(email, password);
 	try {
 		userData = await login({ email, password });
+		console.log(userData);
 	} catch (err) {
+		console.log(err);
 		const error = new HttpError('Email or password are invalid!', 401);
 		return next(error);
 	};

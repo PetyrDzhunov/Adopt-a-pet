@@ -8,6 +8,8 @@ const AnimalsList = () => {
 	const [animals, setAnimals] = useState([]);
 	const { isLoading, error, sendRequest, clearError } = useHttp();
 
+
+
 	useEffect(() => {
 		const fetchAnimals = async () => {
 			try {

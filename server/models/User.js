@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const { SALT_FOR_HASHING } = require('../config/constants');
 
 const userSchema = new mongoose.Schema({
@@ -31,8 +31,8 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 userSchema.pre('save', function (next) {
-	bcrypt.genSalt(SALT_FOR_HASHING)
-		.then(salt => bcrypt.hash(this.password, salt))
+
+	bcrypt.hash(this.password, SALT_FOR_HASHING)
 		.then(hash => {
 			this.password = hash
 			next();
@@ -40,6 +40,7 @@ userSchema.pre('save', function (next) {
 });
 
 userSchema.method('validatePassword', function (password) {
+	console.log(password, this.password);
 	return bcrypt.compare(password, this.password)
 });
 

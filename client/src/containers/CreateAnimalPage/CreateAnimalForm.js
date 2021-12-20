@@ -9,14 +9,13 @@ import placeholder from '../../assets/images/placeholder.jpg';
 import { useHttp } from '../../hooks/useHttp';
 import { useSelector } from 'react-redux';
 import { BASE_API_URL } from '../../constants';
-
-
-import { storage } from '../../firebase';
-import { ref, uploadBytes } from 'firebase/storage';
-
+import { useNavigate } from 'react-router-dom';
+import { app } from '../../firebase';
 
 import '../../components/ImgPreview/ImgPreview.css';
 import '../AuthenticationPage/Forms.css';
+
+
 
 const validationSchema = {
 	name: Yup.string().max(20, 'Name must be less than 20 chars.').required('Name is required.'),
@@ -24,30 +23,29 @@ const validationSchema = {
 	description: Yup.string().max(100, 'Maximum 100 characaters for description')
 };
 
-const imagesRef = ref(storage, 'images');
 
 const CreateAnimalForm = () => {
+	const navigate = useNavigate();
 
 	const token = useSelector(state => state.auth.token);
 	const { clearError, error, isLoading, sendRequest } = useHttp();
 
-	const [{ alt, src }, setImg] = useState({
+	const [{ alt, src, file }, setImg] = useState({
 		src: placeholder,
-		alt: 'Upload an Image'
+		alt: 'Upload an Image',
+		file: null
 	});
 
 	const handleImg = (e) => {
 		if (e.target.files[0]) {
 			setImg({
 				src: URL.createObjectURL(e.target.files[0]),
-				alt: e.target.files[0].name
+				alt: e.target.files[0].name,
+				file: e.target.files[0],
 			});
-		}
-
-		uploadBytes(imagesRef, src).then((snapshot) => {
-			console.log('Uploaded a blob or file!');
-		});
+		};
 	};
+
 	return (
 		<Formik
 			initialValues={{ name: '', gender: 'male', age: 0, neutered: 'no', species: 'dog', file: '' }}
@@ -61,7 +59,15 @@ const CreateAnimalForm = () => {
 							'Content-Type': 'application/json',
 							Authorization: `Bearer ${token}`
 						});
-						console.log(createdAnimal);
+
+						const storageRef = app.storage().ref();
+						const fileRef = storageRef.child(file.name);
+						fileRef.put(file)
+							.then(() => {
+								console.log('Uploaded a file!');
+								navigate('/')
+
+							});
 					} catch (err) {
 						// if unable to be created show the error
 						console.log(err);
