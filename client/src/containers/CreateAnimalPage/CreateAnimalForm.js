@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { projectStorage } from '../../firebase'
 
 import { Form, Field, ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -15,7 +16,7 @@ import ProgressBar from './ProgressBar';
 import '../../components/ImgPreview/ImgPreview.css';
 import '../AuthenticationPage/Forms.css';
 import useStorage from '../../hooks/useStorage';
-
+import { generateUrl } from '../../services/animalsService';
 
 
 const validationSchema = {
@@ -27,9 +28,7 @@ const validationSchema = {
 
 const CreateAnimalForm = () => {
 	const navigate = useNavigate();
-
-	const types = ['image/png', 'image/jpeg', 'image/jpg'];
-
+	console.log('rerender');
 	const token = useSelector(state => state.auth.token);
 	const { clearError, error, isLoading, sendRequest } = useHttp();
 
@@ -38,12 +37,10 @@ const CreateAnimalForm = () => {
 		src: placeholder
 	});
 
+
 	const [file, setFile] = useState(null);
 
-
-	// const { progress, url, error: err } = useStorage(file);
-
-	const handleImg = (e) => {
+	const handleImg = async (e) => {
 		let selected = e.target.files[0];
 		if (selected) {
 			setFile(selected);
@@ -55,7 +52,6 @@ const CreateAnimalForm = () => {
 			setFile(null);
 			console.log('Please select an image file(png or jpeg)');
 		};
-
 	};
 
 	return (
@@ -63,18 +59,18 @@ const CreateAnimalForm = () => {
 			initialValues={{ name: '', gender: 'male', age: 0, neutered: 'no', species: 'dog', file: '' }}
 			validationSchema={Yup.object(validationSchema)}
 			onSubmit={(values, { setSubmitting }) => {
-
-				values.age = Number(values.age);
+				console.log(values.file);
 				const createPet = async () => {
+					console.log(file);
+
 					try {
-						console.log('here');
 						const createdAnimal = await sendRequest(`${BASE_API_URL}/animals`, 'POST', JSON.stringify(values), {
 							'Content-Type': 'application/json',
 							Authorization: `Bearer ${token}`
 						});
-						console.log(createdAnimal);
 						navigate('/')
-						// upload file;
+						// send back to the back end my animal + url on the image prop.
+
 					} catch (err) {
 						// if unable to be created show the error
 						console.log(err);
@@ -107,15 +103,6 @@ const CreateAnimalForm = () => {
 				</div>
 				<ErrorMessage name="age" component={ValidationError} />
 
-				<div className='form-control'>
-					<ImgPreview src={src} alt={alt} />
-					<label htmlFor="image">Image</label>
-					<input id="file" accept='.png, .jpg, .jpeg' name="file" type="file" onChange={handleImg} />
-					{file && <ProgressBar file={file} setFile={setFile} />}
-				</div>
-				<ErrorMessage name="image" component={ValidationError} />
-
-
 				<div className='form-control-select'>
 					<div className='form-control'>
 						<label htmlFor="gender">Gender</label>
@@ -132,15 +119,26 @@ const CreateAnimalForm = () => {
 							<option value="yes">yes</option>
 						</Field>
 					</div>
+
+
+					<div className='form-control'>
+						<label htmlFor="species">Species</label>
+						<Field name="species" as="select">
+							<option value="dog">dog</option>
+							<option value="cat">cat</option>
+						</Field>
+					</div>
 				</div>
 
+
 				<div className='form-control'>
-					<label htmlFor="species">Species</label>
-					<Field name="species" as="select">
-						<option value="dog">dog</option>
-						<option value="cat">cat</option>
-					</Field>
+					<ImgPreview src={src} alt={alt} />
+					<label htmlFor="file">Image</label>
+					<input id="file" accept='.png, .jpg, .jpeg' name="file" type="file" onChange={handleImg} />
+					{file && <ProgressBar file={file} setFile={setFile} />}
 				</div>
+				<ErrorMessage name="file" component={ValidationError} />
+
 				<hr style={{ width: '220px' }} />
 				<Button type="submit" className='primary-button--big'>Add</Button>
 			</Form>

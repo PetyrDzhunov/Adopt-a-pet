@@ -77,7 +77,6 @@ router.post('/login', async (req, res, next) => {
 	const { email, password } = req.body;
 	try {
 		userData = await login({ email, password });
-		console.log(userData);
 	} catch (err) {
 		console.log(err);
 		const error = new HttpError('Email or password are invalid!', 401);

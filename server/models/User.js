@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema({
 	},
 	email: {
 		type: String,
-		unique: true,
 		trim: true
 	},
 	password: {
@@ -31,10 +30,10 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 userSchema.pre('save', function (next) {
-	bcrypt.hash(this.password, SALT_FOR_HASHING)
+	return bcrypt.hash(this.password, SALT_FOR_HASHING)
 		.then(hash => {
 			this.password = hash
-			next();
+			return next();
 		});
 });
 

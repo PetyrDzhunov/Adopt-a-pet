@@ -10,7 +10,6 @@ exports.login = async ({ email, password }) => {
 		throw new Error('Invalid username or password');
 	};
 	let isValid = await user.validatePassword(password);
-
 	console.log(isValid);
 	if (!isValid) {
 		throw new Error('Invalid credentials, could not log you in.');
